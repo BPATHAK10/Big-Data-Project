@@ -2,8 +2,6 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
 from elasticsearch import Elasticsearch
-from elasticsearch.helpers import bulk
-from elasticsearch.helpers.errors import BulkIndexError
 from bson.json_util import dumps
 from dotenv import load_dotenv
 import os
