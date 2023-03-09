@@ -43,7 +43,7 @@ def load_movies():
 
 
 # Search documents in ElasticSearch
-@app.route('/search_movies', methods=['POST'])
+@app.route('/search_movies', methods=['GET'])
 def search_movies():
     data = request.json
     query = {
