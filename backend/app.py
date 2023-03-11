@@ -43,20 +43,20 @@ def load_movies():
 
 
 # Search documents in ElasticSearch
-@app.route('/search_movies', methods=['GET'])
+@app.route('/search_movies', methods=['POST'])
 def search_movies():
     data = request.json
     query = {
         "query": {
             "multi_match": {
                 "query": data['query'],
-                "fields": ["title^3", "description^2", "genre^2", "date"]
+                "fields": ["title^3", "description^2", "genre^2"]
             }
         }
     }
     result = es.search(index='movies_index', body=query)
     hits = result['hits']['hits']
-    response = [{'id': hit['_id'], 'title': hit['_source']['title'], 'description': hit['_source']['description']} for hit in hits]
+    response = [{'id': hit['_id'], 'title': hit['_source']['title'], 'description': hit['_source']['description'], 'rating': hit['_source']['rating']} for hit in hits]
     return jsonify({'hits': response}), 200
 
 if __name__ == '__main__':
